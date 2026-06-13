@@ -13,20 +13,25 @@
 export const SITE = {
   name: "Rishabh Pratap Singh",
   brand: "R.S",
-  tagline: "I build distributed runtimes, backend systems, and the occasional asteroid field.",
-  subline: "MS Computer Science @ University of Washington · Research Assistant on MASS C++ · GPA 4.0",
+  tagline:
+    "I build distributed runtimes, backend systems, and the occasional asteroid field.",
+  subline:
+    "MS Computer Science @ University of Washington · Research Assistant on MASS C++ · GPA 4.0",
   bootLine: "$ MASS::init(hosts=24) ............ cluster online",
-  heroNote: "// personal note: lately I can't stop thinking about low-level programming. Memory management in C, a bit of Zig on the side.",
+  heroNote:
+    "// personal note: lately I can't stop thinking about low-level programming. Memory management in C, a bit of Zig on the side.",
   // SEO / link-preview copy
-  description: "Portfolio of Rishabh Pratap Singh: distributed systems, HPC, and backend engineering. MS CS at the University of Washington, building the MASS C++ parallel runtime.",
+  description:
+    "Portfolio of Rishabh Pratap Singh: distributed systems, HPC, and backend engineering. MS CS at the University of Washington, building the MASS C++ parallel runtime.",
   email: "rishprsi@gmail.com",
   github: "https://github.com/rishprsi",
   linkedin: "https://www.linkedin.com/in/rishprsi/",
   resume: "Rishabh_Resume.pdf", // lives in /public; update the file there to refresh it
   contactBlurb:
     "I'd love to collaborate on open-source systems work and learn from people who've been at it longer than me. If you're building something low-level, distributed, or just plain interesting, say hi.",
-  contactNote: "// response latency: usually < 24h. No barrier synchronization required.",
-  footer: "designed & built by rishabh · astro + a single data file · hosted on github pages",
+  contactNote:
+    "// response latency: usually < 24h. No barrier synchronization required.",
+  footer: "By Rishabh · Astro · Github Pages",
 };
 
 export const ABOUT_PARAGRAPHS = [
@@ -47,9 +52,27 @@ export const CERTS = [
 ];
 
 export const SKILLS = [
-  { group: "Languages", items: ["C++", "Go", "Python", "Zig", "TypeScript", "SQL"] },
-  { group: "ML & HPC", items: ["CUDA", "MPI", "OpenMP", "PyTorch", "Nsight", "RAG", "OpenCV"] },
-  { group: "Technologies", items: ["ReactJS", "FastAPI", "Spring", "AWS", "Terraform", "PostgreSQL", "Snowflake", "REST APIs"] },
+  {
+    group: "Languages",
+    items: ["C++", "Go", "Python", "Zig", "TypeScript", "SQL"],
+  },
+  {
+    group: "ML & HPC",
+    items: ["CUDA", "MPI", "OpenMP", "PyTorch", "Nsight", "RAG", "OpenCV"],
+  },
+  {
+    group: "Technologies",
+    items: [
+      "ReactJS",
+      "FastAPI",
+      "Spring",
+      "AWS",
+      "Terraform",
+      "PostgreSQL",
+      "Snowflake",
+      "REST APIs",
+    ],
+  },
 ];
 
 export const THESIS = {
@@ -86,7 +109,8 @@ export const THESIS = {
 export const PROJECT_GROUPS = [
   {
     domain: "HPC & Low-Level Systems",
-    blurb: "Parallel algorithms on GPUs, cryptography, and protocols rebuilt from raw bytes. The goal here was to learn the machine, not just the API.",
+    blurb:
+      "Parallel algorithms on GPUs, cryptography, and protocols rebuilt from raw bytes. The goal here was to learn the machine, not just the API.",
     expertise: ["C++", "CUDA", "Go", "TCP", "Web Crypto"],
     projects: [
       {
@@ -114,8 +138,14 @@ export const PROJECT_GROUPS = [
         desc: "Zero-backend encryptor for text and files: AES-256-GCM via the Web Crypto API, optional expiry metadata, runs entirely in your browser. Also ships a Go terminal version. Deployed on GitHub Pages.",
         tech: ["JavaScript", "Web Crypto", "AES-256-GCM", "Go"],
         links: [
-          { label: "live demo", url: "https://rishprsi.github.io/Simple_Encrypt/" },
-          { label: "github", url: "https://github.com/rishprsi/Simple_Encrypt" },
+          {
+            label: "live demo",
+            url: "https://rishprsi.github.io/Simple_Encrypt/",
+          },
+          {
+            label: "github",
+            url: "https://github.com/rishprsi/Simple_Encrypt",
+          },
         ],
         note: "// born from refusing to upload a private file to a random website.",
       },
@@ -123,7 +153,8 @@ export const PROJECT_GROUPS = [
   },
   {
     domain: "AI, Agents & Retrieval",
-    blurb: "LLM memory architectures, full information-retrieval pipelines, and tool-calling loops, built layer by layer instead of importing the magic.",
+    blurb:
+      "LLM memory architectures, full information-retrieval pipelines, and tool-calling loops, built layer by layer instead of importing the magic.",
     expertise: ["Python", "RAG", "Embeddings", "Gemini", "CLIP"],
     projects: [
       {
@@ -157,7 +188,8 @@ export const PROJECT_GROUPS = [
   },
   {
     domain: "Backend & Cloud",
-    blurb: "Production-shaped Go services: auth, object storage, media pipelines, and databases that don't fall over.",
+    blurb:
+      "Production-shaped Go services: auth, object storage, media pipelines, and databases that don't fall over.",
     expertise: ["Go", "PostgreSQL", "AWS", "JWT", "ffmpeg"],
     projects: [
       {
@@ -200,7 +232,8 @@ export const PROJECT_GROUPS = [
   },
   {
     domain: "Foundations & Play",
-    blurb: "Parsers, concurrency, and game loops, built to learn the fundamentals and kept around because they're fun.",
+    blurb:
+      "Parsers, concurrency, and game loops, built to learn the fundamentals and kept around because they're fun.",
     expertise: ["Python", "asyncio", "parsing", "pygame"],
     projects: [
       {
