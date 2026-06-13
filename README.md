@@ -10,13 +10,15 @@ Built with [Astro](https://astro.build): the page is pre-rendered to static HTML
 portfolio/
 ├── src/
 │   ├── data.js              # ★ ALL content lives here — edit this file
+│   ├── icons.js             # tech name → Nerd Font glyph map (for chips)
 │   ├── pages/index.astro    # composes the sections in order
-│   ├── layouts/Layout.astro # <head>, SEO + Open Graph tags, scripts
+│   ├── layouts/Layout.astro # <head>, SEO + Open Graph tags, fonts, scripts
 │   ├── components/          # one .astro per section (Hero, About, Thesis, ...)
 │   └── styles/global.css    # theme — palette lives in :root variables at the top
 ├── public/
 │   ├── js/animations.js     # canvas animation registry + star field (plain JS)
 │   ├── js/boot.js           # wires canvases, scroll reveals, typed line, toggles
+│   ├── fonts/               # self-hosted JetBrains Mono Nerd Font (subset woff2)
 │   ├── og.svg / og.png      # link-preview card (edit og.svg, regenerate og.png)
 │   ├── Rishabh_Resume.pdf   # linked from the hero — replace when updated
 │   └── .nojekyll
@@ -47,6 +49,28 @@ bun run dev      # local dev server at http://localhost:4321
 bun run build    # static output into dist/
 bun run preview  # serve the built dist/ locally
 ```
+
+### Tech glyphs (Nerd Font)
+
+The skill / tech / expertise chips show language and tool logos from
+**JetBrains Mono Nerd Font**, which is self-hosted (no Google Fonts dependency
+for the mono face) and **subset to only the glyphs actually used**, so all three
+weights together are ~130 KB. The Regular weight is preloaded; `font-display: swap`
+keeps text instant, and glyphs are hidden until the font is ready (no tofu flash).
+
+The name→glyph mapping lives in `src/icons.js`. To add a logo for a new tech:
+
+1. Find its codepoint in the [Nerd Fonts cheat sheet](https://www.nerdfonts.com/cheat-sheet) (prefer the `nf-dev-*` Devicons or `nf-fa-*` set).
+2. Add it to `TECH_ICONS` in `src/icons.js` (e.g. `rust: "\ue7a8"`).
+3. Re-subset the font so the new glyph is included (see below). If you skip this,
+   the glyph renders as an empty box.
+
+To re-subset the font (needs `fonttools` + `brotli`, e.g. `pip install fonttools brotli`):
+download the JetBrains Mono Nerd Font, then run `pyftsubset` on the
+`*NerdFontMono-{Regular,SemiBold,Italic}.ttf` files with `--flavor=woff2`,
+passing `--unicodes=` the Latin ranges plus every codepoint in `src/icons.js`
+(Regular carries the icons; SemiBold/Italic only need Latin). Output the three
+files into `public/fonts/`.
 
 ### Regenerating the link-preview image
 

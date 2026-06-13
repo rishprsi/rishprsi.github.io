@@ -1,4 +1,6 @@
 ---
+import { techIcon } from "../icons.js";
+
 const { group } = Astro.props;
 const flagship = group.projects[0];
 const rest = group.projects.slice(1);
@@ -11,7 +13,14 @@ const rest = group.projects.slice(1);
       <p class="group-blurb">{group.blurb}</p>
     </div>
     <div class="chips group-chips">
-      {group.expertise.map((s) => <span class="chip">{s}</span>)}
+      {group.expertise.map((s) => {
+        const g = techIcon(s);
+        return (
+          <span class="chip">
+            {g && <span class="ic" aria-hidden="true">{g}</span>}{s}
+          </span>
+        );
+      })}
     </div>
   </div>
 
@@ -24,7 +33,12 @@ const rest = group.projects.slice(1);
       <span class="flagship-label mono">★ flagship mission</span>
       <h4>{flagship.name}</h4>
       <p class="card-desc">{flagship.desc}</p>
-      <div class="card-tech">{flagship.tech.map((t) => <span>{t}</span>)}</div>
+      <div class="card-tech">
+        {flagship.tech.map((t) => {
+          const g = techIcon(t);
+          return <span>{g && <span class="ic" aria-hidden="true">{g}</span>}{t}</span>;
+        })}
+      </div>
       {
         flagship.links && flagship.links.length > 0 && (
           <div class="card-links">
@@ -55,7 +69,12 @@ const rest = group.projects.slice(1);
                 <div class="card-body">
                   <h4>{p.name}</h4>
                   <p class="card-desc">{p.desc}</p>
-                  <div class="card-tech">{p.tech.map((t) => <span>{t}</span>)}</div>
+                  <div class="card-tech">
+                    {p.tech.map((t) => {
+                      const g = techIcon(t);
+                      return <span>{g && <span class="ic" aria-hidden="true">{g}</span>}{t}</span>;
+                    })}
+                  </div>
                   {p.links && p.links.length > 0 && (
                     <div class="card-links">
                       {p.links.map((l) => (

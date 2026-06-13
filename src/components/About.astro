@@ -1,5 +1,6 @@
 ---
 import { ABOUT_PARAGRAPHS, BOOKS, CERTS, SKILLS } from "../data.js";
+import { techIcon } from "../icons.js";
 ---
 
 <section class="section" id="about">
@@ -25,7 +26,14 @@ import { ABOUT_PARAGRAPHS, BOOKS, CERTS, SKILLS } from "../data.js";
         <div class="skill-row reveal">
           <span class="skill-group">{group.group} ::</span>
           <div class="chips">
-            {group.items.map((s) => <span class="chip">{s}</span>)}
+            {group.items.map((s) => {
+              const g = techIcon(s);
+              return (
+                <span class="chip">
+                  {g && <span class="ic" aria-hidden="true">{g}</span>}{s}
+                </span>
+              );
+            })}
           </div>
         </div>
       ))

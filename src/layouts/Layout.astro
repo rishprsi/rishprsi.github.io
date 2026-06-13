@@ -16,6 +16,15 @@ const favicon =
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script is:inline>
+      // hide tech glyphs until the Nerd Font is ready, so they never flash as tofu
+      if (document.fonts) {
+        document.documentElement.classList.add("fonts-pending");
+        document.fonts.ready.then(function () {
+          document.documentElement.classList.remove("fonts-pending");
+        });
+      }
+    </script>
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -37,10 +46,12 @@ const favicon =
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
+    <!-- preload the icon-bearing mono weight; others load on demand -->
+    <link rel="preload" href="/fonts/JBMonoNerd-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
   </head>
