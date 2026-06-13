@@ -1,0 +1,12 @@
+---
+import { PROJECT_GROUPS, PROJECTS_INTRO } from "../data.js";
+import ProjectGroup from "./ProjectGroup.astro";
+---
+
+<section class="section" id="projects">
+  <h2 class="section-title"><span class="step mono">superstep 3</span>Mission Log</h2>
+  <p class="section-intro">{PROJECTS_INTRO}</p>
+  <div id="project-grid" class="project-grid">
+    {PROJECT_GROUPS.map((group) => <ProjectGroup group={group} />)}
+  </div>
+</section>

@@ -1,0 +1,12 @@
+---
+import { SITE, NAV } from "../data.js";
+---
+
+<header class="topbar">
+  <a class="brand" href="#top">
+    <span class="brand-dot"></span><span id="brand-name">{SITE.brand}</span>
+  </a>
+  <nav id="nav" class="nav">
+    {NAV.map((n) => <a href={n.href}>{n.label}</a>)}
+  </nav>
+</header>

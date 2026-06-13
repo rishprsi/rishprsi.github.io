@@ -1,0 +1,34 @@
+---
+import { ABOUT_PARAGRAPHS, BOOKS, CERTS, SKILLS } from "../data.js";
+---
+
+<section class="section" id="about">
+  <h2 class="section-title"><span class="step mono">superstep 1</span>Crew Manifest</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      {ABOUT_PARAGRAPHS.map((p) => <p set:html={p} />)}
+    </div>
+    <aside class="about-side panel">
+      <h3 class="mono side-title">// currently reading</h3>
+      <ul id="books" class="books mono">
+        {BOOKS.map((b) => <li>{b}</li>)}
+      </ul>
+      <h3 class="mono side-title">// certifications</h3>
+      <ul id="certs" class="books mono">
+        {CERTS.map((c) => <li>{c}</li>)}
+      </ul>
+    </aside>
+  </div>
+  <div id="skills" class="skills">
+    {
+      SKILLS.map((group) => (
+        <div class="skill-row reveal">
+          <span class="skill-group">{group.group} ::</span>
+          <div class="chips">
+            {group.items.map((s) => <span class="chip">{s}</span>)}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>

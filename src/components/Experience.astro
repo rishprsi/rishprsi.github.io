@@ -1,0 +1,21 @@
+---
+import { EXPERIENCE } from "../data.js";
+---
+
+<section class="section" id="experience">
+  <h2 class="section-title"><span class="step mono">superstep 4</span>Service Record</h2>
+  <div id="timeline" class="timeline">
+    {
+      EXPERIENCE.map((e) => (
+        <div class="t-entry reveal">
+          <div class="t-head">
+            <h3>{e.role}</h3>
+            <span class="t-org">{e.org}</span>
+            <span class="t-when mono">{e.when}</span>
+          </div>
+          <ul>{e.points.map((pt) => <li>{pt}</li>)}</ul>
+        </div>
+      ))
+    }
+  </div>
+</section>

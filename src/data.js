@@ -4,52 +4,55 @@
      The FIRST project in each group's `projects` array is the
      flagship shown on the card; the rest appear when the group
      is expanded. `anim` picks an animation from
-     js/animations.js (see registry at the top of that file).
+     public/js/animations.js (see registry at the top of that file).
    - Swap skills: edit SKILLS.
-   - Everything renders automatically from these objects.
+   - The Astro components render everything from these objects at
+     build time, so the page is real HTML (good for SEO / link previews).
    ============================================================ */
 
-const SITE = {
+export const SITE = {
   name: "Rishabh Pratap Singh",
-  brand: "rishabh.singh",
+  brand: "R.S",
   tagline: "I build distributed runtimes, backend systems, and the occasional asteroid field.",
   subline: "MS Computer Science @ University of Washington · Research Assistant on MASS C++ · GPA 4.0",
   bootLine: "$ MASS::init(hosts=24) ............ cluster online",
   heroNote: "// personal note: lately I can't stop thinking about low-level programming. Memory management in C, a bit of Zig on the side.",
+  // SEO / link-preview copy
+  description: "Portfolio of Rishabh Pratap Singh: distributed systems, HPC, and backend engineering. MS CS at the University of Washington, building the MASS C++ parallel runtime.",
   email: "rishprsi@gmail.com",
   github: "https://github.com/rishprsi",
   linkedin: "https://www.linkedin.com/in/rishprsi/",
-  resume: "Rishabh_Resume.pdf", // drop your resume PDF next to index.html with this name
+  resume: "Rishabh_Resume.pdf", // lives in /public; update the file there to refresh it
   contactBlurb:
     "I'd love to collaborate on open-source systems work and learn from people who've been at it longer than me. If you're building something low-level, distributed, or just plain interesting, say hi.",
   contactNote: "// response latency: usually < 24h. No barrier synchronization required.",
-  footer: "designed & built by rishabh · no frameworks, no build step · hosted on github pages",
+  footer: "designed & built by rishabh · astro + a single data file · hosted on github pages",
 };
 
-const ABOUT_PARAGRAPHS = [
+export const ABOUT_PARAGRAPHS = [
   "I'm a master's student at the University of Washington, working on <strong>MASS C++</strong>, a parallel computing library for agent-based simulation on distributed-memory clusters. My thesis is pushing it toward a general-purpose runtime, with modern lambda dispatch, asynchronous compound execution, and a full graph-computing stack.",
   "Before grad school I spent about four years as a data engineer and full-stack developer (Wipro on the Blackstone account, then Infosys), shipping finance dashboards, rule engines, and event-driven microservices. These days I work a lot closer to the metal: C++, CUDA, MPI, and the quiet joy of profiling something until it stops embarrassing me.",
   "Most of the projects below started as learning exercises that got a little out of hand, which, honestly, is my favorite way to learn.",
 ];
 
-const BOOKS = [
+export const BOOKS = [
   "The Pragmatic Programmer",
   "Advanced Programming in the UNIX Environment",
   "Competitive Programmer's Handbook",
 ];
 
-const CERTS = [
+export const CERTS = [
   "Boot.dev Backend Developer Path, Archmage rank (Go, HTTP, crypto)",
   "Algorithmic Toolbox, UC San Diego",
 ];
 
-const SKILLS = [
+export const SKILLS = [
   { group: "Languages", items: ["C++", "Go", "Python", "Zig", "TypeScript", "SQL"] },
   { group: "ML & HPC", items: ["CUDA", "MPI", "OpenMP", "PyTorch", "Nsight", "RAG", "OpenCV"] },
   { group: "Technologies", items: ["ReactJS", "FastAPI", "Spring", "AWS", "Terraform", "PostgreSQL", "Snowflake", "REST APIs"] },
 ];
 
-const THESIS = {
+export const THESIS = {
   title: "Feature Extension of MASS C++ towards a General-Purpose Library",
   institution: "University of Washington · MS Thesis · 2026",
   anim: "agents",
@@ -80,7 +83,7 @@ const THESIS = {
 
 /* anim keys: agents, nbody, search, encrypt, http, upload, chirps,
    rss, pokeball, asteroids, markdown, crawler, agentloop, memgraph, wordcount */
-const PROJECT_GROUPS = [
+export const PROJECT_GROUPS = [
   {
     domain: "HPC & Low-Level Systems",
     blurb: "Parallel algorithms on GPUs, cryptography, and protocols rebuilt from raw bytes. The goal here was to learn the machine, not just the API.",
@@ -240,10 +243,10 @@ const PROJECT_GROUPS = [
   },
 ];
 
-const PROJECTS_INTRO =
+export const PROJECTS_INTRO =
   "Four groups, each led by its flagship build. Open a group's full log to see everything inside, and every project has its own little system animation.";
 
-const EXPERIENCE = [
+export const EXPERIENCE = [
   {
     role: "Research Assistant",
     org: "University of Washington",
@@ -274,7 +277,7 @@ const EXPERIENCE = [
   },
 ];
 
-const NAV = [
+export const NAV = [
   { label: "crew", href: "#about" },
   { label: "research", href: "#thesis" },
   { label: "missions", href: "#projects" },

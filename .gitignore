@@ -1,1 +1,10 @@
+# build output
+dist/
+# dependencies
+node_modules/
+# generated types
+.astro/
+
+# misc
 .DS_Store
+*.log

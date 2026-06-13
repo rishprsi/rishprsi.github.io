@@ -1,0 +1,26 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import Thesis from "../components/Thesis.astro";
+import Projects from "../components/Projects.astro";
+import Experience from "../components/Experience.astro";
+import Contact from "../components/Contact.astro";
+import Barrier from "../components/Barrier.astro";
+---
+
+<Layout>
+  <main id="top">
+    <Hero />
+    <Barrier step="0" />
+    <About />
+    <Barrier step="1" />
+    <Thesis />
+    <Barrier step="2" />
+    <Projects />
+    <Barrier step="3" />
+    <Experience />
+    <Barrier step="4" />
+    <Contact />
+  </main>
+</Layout>

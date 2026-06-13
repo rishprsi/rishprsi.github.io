@@ -1,0 +1,40 @@
+---
+import { THESIS } from "../data.js";
+---
+
+<section class="section" id="thesis">
+  <h2 class="section-title"><span class="step mono">superstep 2</span>Flagship Research</h2>
+  <div id="thesis-panel">
+    <div class="panel thesis-panel reveal">
+      <div class="thesis-head">
+        <h3>{THESIS.title}</h3>
+        <div class="thesis-inst mono">{THESIS.institution}</div>
+      </div>
+      <div class="thesis-canvas-wrap">
+        <canvas data-anim={THESIS.anim}></canvas>
+      </div>
+      <p class="thesis-summary">{THESIS.summary}</p>
+      <div class="contrib-grid">
+        {
+          THESIS.contributions.map((c) => (
+            <div class="contrib">
+              <h4>{c.title}</h4>
+              <p>{c.body}</p>
+            </div>
+          ))
+        }
+      </div>
+      <div class="stat-row">
+        {
+          THESIS.stats.map((s) => (
+            <div class="stat">
+              <div class="value">{s.value}</div>
+              <div class="label">{s.label}</div>
+            </div>
+          ))
+        }
+      </div>
+      <p class="card-note">{THESIS.note}</p>
+    </div>
+  </div>
+</section>

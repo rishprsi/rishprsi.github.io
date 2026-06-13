@@ -1,0 +1,30 @@
+---
+import { SITE } from "../data.js";
+
+const links = [
+  { label: SITE.email, url: `mailto:${SITE.email}`, primary: true },
+  { label: "github", url: SITE.github },
+  { label: "linkedin", url: SITE.linkedin },
+];
+---
+
+<section class="section contact" id="contact">
+  <h2 class="section-title"><span class="step mono">superstep 5</span>Open a Channel</h2>
+  <p class="contact-blurb">{SITE.contactBlurb}</p>
+  <div class="hero-links" id="contact-links">
+    {
+      links.map((l) =>
+        l.url.startsWith("http") ? (
+          <a class={"btn" + (l.primary ? " primary" : "")} href={l.url} target="_blank" rel="noopener">
+            {l.label}
+          </a>
+        ) : (
+          <a class={"btn" + (l.primary ? " primary" : "")} href={l.url}>
+            {l.label}
+          </a>
+        )
+      )
+    }
+  </div>
+  <p class="personal-note mono" id="contact-note">{SITE.contactNote}</p>
+</section>
