@@ -895,6 +895,47 @@ function initSpace() {
     W = 0,
     H = 0;
 
+  // smoothed cursor position (0..1) drives a subtle parallax offset
+  const m = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
+  window.addEventListener(
+    "mousemove",
+    (e) => {
+      m.tx = e.clientX / window.innerWidth;
+      m.ty = e.clientY / window.innerHeight;
+    },
+    { passive: true }
+  );
+
+  // theme-aware colors, re-read whenever the palette changes
+  let cStar = "170,196,232",
+    cLine = "89,194,255",
+    cNode = "255,180,84";
+  function toRgb(v) {
+    v = (v || "").trim();
+    const x = v.replace("#", "");
+    if (x.length === 3)
+      return [
+        parseInt(x[0] + x[0], 16),
+        parseInt(x[1] + x[1], 16),
+        parseInt(x[2] + x[2], 16),
+      ].join(",");
+    if (x.length >= 6)
+      return [
+        parseInt(x.slice(0, 2), 16),
+        parseInt(x.slice(2, 4), 16),
+        parseInt(x.slice(4, 6), 16),
+      ].join(",");
+    return null;
+  }
+  function readColors() {
+    const cs = getComputedStyle(document.documentElement);
+    cLine = toRgb(cs.getPropertyValue("--cyan")) || cLine;
+    cNode = toRgb(cs.getPropertyValue("--amber")) || cNode;
+    cStar = toRgb(cs.getPropertyValue("--text-dim")) || cStar;
+  }
+  readColors();
+  window.addEventListener("rs-theme-change", readColors);
+
   function build() {
     const dpr = window.devicePixelRatio || 1;
     W = window.innerWidth;
@@ -908,6 +949,7 @@ function initSpace() {
       r: rnd(0.4, 1.5),
       ph: rnd(0, TAU),
       sp: rnd(0.3, 1.2),
+      z: rnd(0.3, 1), // depth: deeper stars parallax less
     }));
     nodes = Array.from({ length: 16 }, () => ({
       x: Math.random() * W,
@@ -924,13 +966,18 @@ function initSpace() {
   function frame(now) {
     const dt = Math.min((now - last) / 1000, 0.05);
     last = now;
+    // ease toward the cursor and turn it into a small pixel offset
+    m.x += (m.tx - m.x) * 0.04;
+    m.y += (m.ty - m.y) * 0.04;
+    const ox = (m.x - 0.5) * 34;
+    const oy = (m.y - 0.5) * 34;
     ctx.clearRect(0, 0, W, H);
-    // stars
+    // stars (parallax scaled by depth)
     stars.forEach((s) => {
       const tw = 0.5 + 0.5 * Math.sin((now / 1000) * s.sp + s.ph);
       ctx.globalAlpha = 0.25 + tw * 0.5;
-      ctx.fillStyle = "#aac4e8";
-      ctx.fillRect(s.x, s.y, s.r, s.r);
+      ctx.fillStyle = `rgb(${cStar})`;
+      ctx.fillRect(s.x + ox * s.z * 0.5, s.y + oy * s.z * 0.5, s.r, s.r);
     });
     ctx.globalAlpha = 1;
     // constellation
@@ -942,18 +989,18 @@ function initSpace() {
       for (let j = i + 1; j < nodes.length; j++) {
         const d = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
         if (d < 190) {
-          ctx.strokeStyle = `rgba(89,194,255,${(1 - d / 190) * 0.1})`;
+          ctx.strokeStyle = `rgba(${cLine},${(1 - d / 190) * 0.1})`;
           ctx.beginPath();
-          ctx.moveTo(nodes[i].x, nodes[i].y);
-          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.moveTo(nodes[i].x + ox, nodes[i].y + oy);
+          ctx.lineTo(nodes[j].x + ox, nodes[j].y + oy);
           ctx.stroke();
         }
       }
     }
     nodes.forEach((n) => {
       ctx.beginPath();
-      ctx.arc(n.x, n.y, 1.6, 0, TAU);
-      ctx.fillStyle = "rgba(255,180,84,0.35)";
+      ctx.arc(n.x + ox, n.y + oy, 1.6, 0, TAU);
+      ctx.fillStyle = `rgba(${cNode},0.35)`;
       ctx.fill();
     });
     if (!reduced) requestAnimationFrame(frame);

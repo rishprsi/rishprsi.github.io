@@ -77,10 +77,164 @@
     });
   }
 
+  /* 6 — theme switching (persisted; tells the background to recolor) */
+  function applyTheme(name) {
+    if (!name) return;
+    if (name === "deep-space") {
+      document.documentElement.removeAttribute("data-theme");
+    } else {
+      document.documentElement.setAttribute("data-theme", name);
+    }
+    try {
+      localStorage.setItem("rs-theme", name);
+    } catch (e) {}
+    window.dispatchEvent(new Event("rs-theme-change"));
+  }
+
+  function initThemes() {
+    let saved;
+    try {
+      saved = localStorage.getItem("rs-theme");
+    } catch (e) {}
+    if (saved) applyTheme(saved);
+  }
+
+  /* 7 — command console (Cmd/Ctrl-K). No "/" binding, so the browser's
+     own quick-find on "/" keeps working. */
+  function initPalette() {
+    const wrap = document.getElementById("cmdk-wrap");
+    const input = document.getElementById("cmdk-input");
+    const list = document.getElementById("cmdk-list");
+    const dataEl = document.getElementById("cmdk-data");
+    if (!wrap || !input || !list || !dataEl) return;
+
+    let CMDS = [];
+    try {
+      CMDS = JSON.parse(dataEl.textContent || "[]");
+    } catch (e) {
+      CMDS = [];
+    }
+    let filtered = CMDS.slice();
+    let sel = 0;
+
+    function exec(cmd) {
+      if (!cmd) return;
+      if (cmd.type === "theme") return applyTheme(cmd.target);
+      if (cmd.type === "link") {
+        const external = cmd.target.indexOf("http") === 0;
+        window.open(cmd.target, external ? "_blank" : "_self", "noopener");
+        return;
+      }
+      const el = document.querySelector(cmd.target); // nav
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function paintSel() {
+      Array.prototype.forEach.call(list.children, (c, i) =>
+        c.setAttribute("aria-selected", String(i === sel))
+      );
+      const active = list.children[sel];
+      if (active) active.scrollIntoView({ block: "nearest" });
+    }
+
+    function render() {
+      list.innerHTML = "";
+      filtered.forEach((cmd, i) => {
+        const el = document.createElement("div");
+        el.className = "cmdk-item";
+        el.setAttribute("role", "option");
+        el.setAttribute("aria-selected", String(i === sel));
+        el.innerHTML =
+          '<span class="c">' +
+          cmd.c +
+          '</span><span>' +
+          cmd.t +
+          '</span><span class="d">' +
+          cmd.d +
+          "</span>";
+        el.addEventListener("click", () => {
+          exec(cmd);
+          closeP();
+        });
+        el.addEventListener("mousemove", () => {
+          if (sel !== i) {
+            sel = i;
+            paintSel();
+          }
+        });
+        list.appendChild(el);
+      });
+    }
+
+    // fold diacritics so "rose" matches "Rosé", "resume" matches "résumé"
+    function norm(s) {
+      return (s || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase();
+    }
+    function filterCmds() {
+      const q = norm(input.value);
+      filtered = CMDS.filter((c) => norm(c.t + " " + c.d).indexOf(q) !== -1);
+      sel = 0;
+      render();
+    }
+
+    function openP(prefill) {
+      wrap.hidden = false;
+      input.value = prefill || "";
+      filterCmds();
+      input.focus();
+    }
+    function closeP() {
+      wrap.hidden = true;
+    }
+
+    input.addEventListener("input", filterCmds);
+    wrap.addEventListener("click", (e) => {
+      if (e.target === wrap) closeP();
+    });
+
+    const dockCmdk = document.getElementById("dock-cmdk");
+    const dockTheme = document.getElementById("dock-theme");
+    if (dockCmdk) dockCmdk.addEventListener("click", () => openP());
+    if (dockTheme) dockTheme.addEventListener("click", () => openP("theme"));
+
+    window.addEventListener("keydown", (e) => {
+      const open = !wrap.hidden;
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        open ? closeP() : openP();
+        return;
+      }
+      if (!open) return;
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeP();
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        sel = Math.min(filtered.length - 1, sel + 1);
+        paintSel();
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        sel = Math.max(0, sel - 1);
+        paintSel();
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        exec(filtered[sel]);
+        closeP();
+      }
+    });
+
+    render();
+  }
+
   function boot() {
+    initThemes();
     initReveal();
     initBootLine();
     initGroupToggles();
+    initPalette();
     requestAnimationFrame(initCanvases);
   }
 

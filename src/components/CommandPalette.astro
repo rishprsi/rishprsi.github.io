@@ -1,0 +1,84 @@
+---
+import { SITE, NAV, PROJECT_GROUPS } from "../data.js";
+
+const resumeHref = import.meta.env.BASE_URL + SITE.resume;
+const flagships = PROJECT_GROUPS.map((g) => g.projects[0]);
+
+// Theme list mirrors the [data-theme] blocks in global.css.
+const THEME_LIST = [
+  { value: "deep-space", label: "Deep Space" },
+  { value: "phosphor", label: "Phosphor" },
+  { value: "plasma", label: "Plasma" },
+  { value: "rose-pine", label: "Rosé Pine" },
+  { value: "vesper", label: "Vesper" },
+];
+
+// Commands are built from data so they stay in sync with the site.
+const commands = [
+  ...NAV.map((n) => ({
+    c: "→",
+    t: "Go to " + n.label,
+    d: n.href,
+    type: "nav",
+    target: n.href,
+  })),
+  ...flagships.map((p) => ({
+    c: "◆",
+    t: "Jump to " + p.name,
+    d: p.inProgress ? "in progress" : "mission",
+    type: "nav",
+    target: "#projects",
+  })),
+  ...THEME_LIST.map((t) => ({
+    c: "◑",
+    t: "Theme: " + t.label,
+    d: "palette",
+    type: "theme",
+    target: t.value,
+  })),
+  { c: "↗", t: "Open GitHub", d: "external", type: "link", target: SITE.github },
+  { c: "↗", t: "Open LinkedIn", d: "external", type: "link", target: SITE.linkedin },
+  { c: "✉", t: "Email me", d: SITE.email, type: "link", target: `mailto:${SITE.email}` },
+  { c: "⤓", t: "Open résumé", d: "pdf", type: "link", target: resumeHref },
+];
+---
+
+<!-- discreet, always-present hint that the console exists -->
+<div class="console-dock mono">
+  <button id="dock-cmdk" class="dock-btn" type="button" aria-label="Open command console">
+    <span class="dock-key">⌘K</span> console
+  </button>
+  <button id="dock-theme" class="dock-btn" type="button" aria-label="Change theme">
+    ◑ theme
+  </button>
+</div>
+
+<!-- command palette overlay -->
+<div
+  class="cmdk-wrap"
+  id="cmdk-wrap"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Command console"
+  hidden
+>
+  <div class="cmdk">
+    <div class="cmdk-in">
+      <span class="cmdk-prompt mono">$</span>
+      <input
+        id="cmdk-input"
+        class="mono"
+        type="text"
+        autocomplete="off"
+        spellcheck="false"
+        placeholder="jump to a section, switch theme, open a link…"
+      />
+    </div>
+    <div class="cmdk-list" id="cmdk-list" role="listbox" aria-label="Commands"></div>
+    <div class="cmdk-foot mono">
+      <span>↑↓ move</span><span>↵ run</span><span>esc close</span>
+    </div>
+  </div>
+</div>
+
+<script type="application/json" id="cmdk-data" set:html={JSON.stringify(commands)}></script>

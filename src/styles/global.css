@@ -19,6 +19,61 @@
   --maxw: 1080px;
 }
 
+/* ============================================================
+   THEME PALETTES — each is a self-contained block that overrides
+   the tokens above. The default (no attribute) is "deep space".
+   To add a palette: copy a block, rename, retune the colors.
+   The command palette / theme switcher just sets data-theme on
+   <html> and persists the choice to localStorage.
+   ============================================================ */
+html[data-theme="phosphor"] {
+  --bg: #04080a;
+  --bg-panel: rgba(10, 28, 24, 0.72);
+  --bg-panel-solid: #08140f;
+  --line: rgba(57, 255, 158, 0.16);
+  --text: #b7f7d8;
+  --text-dim: #4f9c7e;
+  --amber: #39ff9e;
+  --cyan: #4dffb0;
+  --green: #39ff9e;
+}
+
+html[data-theme="plasma"] {
+  --bg: #0a0710;
+  --bg-panel: rgba(28, 18, 42, 0.78);
+  --bg-panel-solid: #141021;
+  --line: rgba(184, 148, 255, 0.2);
+  --text: #e7dcff;
+  --text-dim: #9a8bb8;
+  --amber: #b894ff;
+  --cyan: #2de2c4;
+  --green: #ff8fc0;
+}
+
+html[data-theme="rose-pine"] {
+  --bg: #191724;
+  --bg-panel: rgba(38, 35, 58, 0.72);
+  --bg-panel-solid: #1f1d2e;
+  --line: rgba(110, 106, 134, 0.3);
+  --text: #e0def4;
+  --text-dim: #908caa;
+  --amber: #f6c177;
+  --cyan: #9ccfd8;
+  --green: #ebbcba;
+}
+
+html[data-theme="vesper"] {
+  --bg: #0d0d0d;
+  --bg-panel: rgba(28, 28, 28, 0.72);
+  --bg-panel-solid: #161616;
+  --line: rgba(255, 255, 255, 0.1);
+  --text: #f5f5f5;
+  --text-dim: #a0a0a0;
+  --amber: #ffc799;
+  --cyan: #99ffe4;
+  --green: #99ffe4;
+}
+
 /* ---- self-hosted JetBrains Mono Nerd Font (subset: Latin + tech glyphs) ---- */
 @font-face {
   font-family: "JetBrainsMono Nerd Font";
@@ -734,8 +789,8 @@ h1 {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--green);
-  background: rgba(7, 11, 18, 0.82);
-  border: 1px solid rgba(127, 217, 98, 0.45);
+  background: color-mix(in srgb, var(--bg) 84%, transparent);
+  border: 1px solid color-mix(in srgb, var(--green) 45%, transparent);
   border-radius: 999px;
   padding: 0.2rem 0.6rem 0.2rem 0.5rem;
 }
@@ -962,6 +1017,136 @@ h1 {
   color: rgba(132, 148, 171, 0.5);
   font-size: 0.7rem;
   border-top: 1px solid var(--line);
+}
+
+/* ---- command console + discreet dock ---- */
+.console-dock {
+  position: fixed;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 20;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dock-btn {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  background: var(--bg-panel);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+.dock-btn:hover {
+  color: var(--text);
+  border-color: var(--cyan);
+}
+
+.dock-key {
+  font-size: 0.66rem;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 0 0.3rem;
+}
+
+.cmdk-wrap {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 14vh;
+  background: color-mix(in srgb, var(--bg) 60%, transparent);
+  backdrop-filter: blur(4px);
+}
+.cmdk-wrap[hidden] {
+  display: none;
+}
+
+.cmdk {
+  width: min(560px, 92vw);
+  background: color-mix(in srgb, var(--bg-panel-solid) 97%, transparent);
+  border: 1px solid color-mix(in srgb, var(--cyan) 30%, var(--line));
+  border-radius: 12px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.cmdk-in {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--line);
+}
+.cmdk-prompt {
+  color: var(--cyan);
+}
+.cmdk-in input {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.cmdk-list {
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 0.4rem;
+}
+
+.cmdk-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.88rem;
+}
+.cmdk-item .c {
+  width: 1.1rem;
+  text-align: center;
+  color: var(--cyan);
+  font-family: var(--mono);
+}
+.cmdk-item .d {
+  margin-left: auto;
+  color: var(--text-dim);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+}
+.cmdk-item[aria-selected="true"] {
+  background: color-mix(in srgb, var(--cyan) 14%, transparent);
+}
+
+.cmdk-foot {
+  display: flex;
+  gap: 1rem;
+  padding: 0.55rem 1rem;
+  border-top: 1px solid var(--line);
+  color: var(--text-dim);
+  font-size: 0.66rem;
+}
+
+@media (max-width: 480px) {
+  .console-dock {
+    display: none;
+  }
 }
 
 /* ---- reveal on scroll ---- */
