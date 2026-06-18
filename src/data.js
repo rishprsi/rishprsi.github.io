@@ -17,7 +17,7 @@ export const SITE = {
     "I build distributed runtimes, backend systems, and the occasional asteroid field.",
   subline:
     "MS Computer Science @ University of Washington · Research Assistant on MASS C++ · GPA 4.0",
-  bootLine: "$ MASS::init(hosts=24) ............ cluster online",
+  bootLine: "$ cluster::init(nodes=24) ............ all nodes online",
   heroNote:
     "// personal note: lately I can't stop thinking about low-level programming. Memory management in C, a bit of Zig on the side.",
   // SEO / link-preview copy
