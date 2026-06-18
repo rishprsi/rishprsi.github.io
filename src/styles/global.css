@@ -1114,7 +1114,7 @@ h1 {
   border: 0;
   outline: 0;
   color: var(--text);
-  font-size: 0.95rem;
+  font-size: 16px; /* 16px min so iOS Safari doesn't zoom-on-focus (causes horizontal scroll) */
 }
 
 .cmdk-list {
