@@ -24,7 +24,7 @@ const rest = group.projects.slice(1);
     </div>
   </div>
 
-  <div class={"g-featured" + (flagship.inProgress ? " building" : "")}>
+  <div class={"g-featured" + (flagship.inProgress ? "" : "")}>
     <div class="card-canvas-wrap">
       <canvas data-anim={flagship.anim}></canvas>
       {flagship.inProgress && (
