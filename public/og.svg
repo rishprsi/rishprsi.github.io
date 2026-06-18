@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">
   <defs>
-    <radialGradient id="glow" cx="28%" cy="42%" r="75%">
-      <stop offset="0%" stop-color="#0e1726"/>
-      <stop offset="55%" stop-color="#0a0f18"/>
-      <stop offset="100%" stop-color="#070b12"/>
+    <radialGradient id="glow" cx="28%" cy="42%" r="78%">
+      <stop offset="0%" stop-color="#1b1b1b"/>
+      <stop offset="55%" stop-color="#131313"/>
+      <stop offset="100%" stop-color="#0d0d0d"/>
     </radialGradient>
     <linearGradient id="amber" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#ffd08a"/>
-      <stop offset="100%" stop-color="#ffb454"/>
+      <stop offset="0%" stop-color="#ffd8bb"/>
+      <stop offset="100%" stop-color="#ffc799"/>
     </linearGradient>
   </defs>
 
   <rect width="1200" height="630" fill="url(#glow)"/>
 
   <!-- star field -->
-  <g fill="#c9d4e3">
+  <g fill="#f5f5f5">
     <circle cx="90" cy="70" r="1.4" opacity="0.5"/>
     <circle cx="240" cy="120" r="1" opacity="0.35"/>
     <circle cx="380" cy="48" r="1.2" opacity="0.45"/>
@@ -39,7 +39,7 @@
   </g>
 
   <!-- constellation graph (the cluster motif) -->
-  <g stroke="#59c2ff" stroke-width="1.1" opacity="0.5">
+  <g stroke="#99ffe4" stroke-width="1.1" opacity="0.5">
     <line x1="940" y1="200" x2="1040" y2="285"/>
     <line x1="1040" y1="285" x2="980" y2="400"/>
     <line x1="980" y1="400" x2="870" y2="360"/>
@@ -47,7 +47,7 @@
     <line x1="1040" y1="285" x2="1120" y2="200"/>
     <line x1="870" y1="360" x2="800" y2="470"/>
   </g>
-  <g fill="#59c2ff">
+  <g fill="#99ffe4">
     <circle cx="940" cy="200" r="5"/>
     <circle cx="1040" cy="285" r="6"/>
     <circle cx="980" cy="400" r="5"/>
@@ -60,29 +60,29 @@
   <rect x="0" y="0" width="6" height="630" fill="url(#amber)" opacity="0.85"/>
 
   <!-- brand -->
-  <circle cx="92" cy="74" r="7" fill="#ffb454"/>
-  <text x="112" y="81" font-size="26" fill="#c9d4e3" letter-spacing="1">R.S</text>
+  <circle cx="92" cy="74" r="7" fill="#ffc799"/>
+  <text x="112" y="81" font-size="26" fill="#f5f5f5" letter-spacing="1">R.S</text>
 
   <!-- boot line -->
-  <text x="88" y="252" font-size="24" fill="#7fd962">$ MASS::init(hosts=24) ......... cluster online</text>
+  <text x="88" y="252" font-size="24" fill="#99ffe4">$ cluster::init(nodes=24) ......... all nodes online</text>
 
   <!-- name -->
   <text x="84" y="350" font-size="82" font-weight="700"
         font-family="Inter, -apple-system, Helvetica, Arial, sans-serif">
-    <tspan fill="#f3f6fb">Rishabh</tspan><tspan fill="url(#amber)" dx="22">Pratap Singh</tspan>
+    <tspan fill="#f5f5f5">Rishabh</tspan><tspan fill="url(#amber)" dx="22">Pratap Singh</tspan>
   </text>
 
   <!-- tagline -->
-  <text x="88" y="418" font-size="31" fill="#c9d4e3"
+  <text x="88" y="418" font-size="31" fill="#f5f5f5"
         font-family="Inter, -apple-system, Helvetica, Arial, sans-serif">
     Distributed runtimes, HPC, and backend systems.
   </text>
 
   <!-- subline -->
-  <text x="88" y="470" font-size="22" fill="#8494ab">
+  <text x="88" y="470" font-size="22" fill="#a0a0a0">
     MS Computer Science / University of Washington / Research Assistant, MASS C++
   </text>
 
   <!-- url -->
-  <text x="88" y="556" font-size="24" fill="#59c2ff">rishprsi.github.io</text>
+  <text x="88" y="556" font-size="24" fill="#99ffe4">rishprsi.github.io</text>
 </svg>
