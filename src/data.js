@@ -206,7 +206,12 @@ export const PROJECT_GROUPS = [
         anim: "upload",
         desc: "A video upload platform: ffmpeg processing for aspect ratios and fast-start encoding, S3 storage, CloudFront delivery, and presigned URLs. The whole life of a video, from upload to playback.",
         tech: ["Go", "AWS S3", "CloudFront", "ffmpeg", "SQLite"],
-        links: [{ label: "github", url: "https://github.com/rishprsi" }],
+        links: [
+          {
+            label: "github",
+            url: "https://github.com/rishprsi/file-storage-s3-golang",
+          },
+        ],
         note: "// ffmpeg flags are a language. I speak a dialect now.",
       },
       {
@@ -271,7 +276,9 @@ export const PROJECT_GROUPS = [
         anim: "crawler",
         desc: "An async website crawler that maps internal link graphs with URL normalization, concurrency limits, and per-page link extraction.",
         tech: ["Python", "asyncio", "aiohttp"],
-        links: [{ label: "github", url: "https://github.com/rishprsi" }],
+        links: [
+          { label: "github", url: "https://github.com/rishprsi/WebCrawler" },
+        ],
         note: "// BFS over the web, politely, with a semaphore.",
       },
       {
