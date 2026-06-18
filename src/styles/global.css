@@ -1,17 +1,19 @@
 /* ============================================================
-   THEME — deep-space cluster console.
+   THEME — default palette is "Vesper" (warm near-black).
    Tweak the palette here; everything derives from these vars.
+   Other palettes live in the [data-theme] blocks below; the
+   default (no attribute) is Vesper.
    ============================================================ */
 :root {
-  --bg: #070b12;
-  --bg-panel: rgba(17, 23, 34, 0.82);
-  --bg-panel-solid: #111722;
-  --line: rgba(120, 150, 200, 0.16);
-  --text: #c9d4e3;
-  --text-dim: #8494ab;
-  --amber: #ffb454;
-  --cyan: #59c2ff;
-  --green: #7fd962;
+  --bg: #0d0d0d;
+  --bg-panel: rgba(28, 28, 28, 0.72);
+  --bg-panel-solid: #161616;
+  --line: rgba(255, 255, 255, 0.1);
+  --text: #f5f5f5;
+  --text-dim: #a0a0a0;
+  --amber: #ffc799;
+  --cyan: #99ffe4;
+  --green: #99ffe4;
   --mono:
     "JetBrainsMono Nerd Font Mono", "JetBrainsMono Nerd Font", "JetBrains Mono",
     ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -62,16 +64,16 @@ html[data-theme="rose-pine"] {
   --green: #ebbcba;
 }
 
-html[data-theme="vesper"] {
-  --bg: #0d0d0d;
-  --bg-panel: rgba(28, 28, 28, 0.72);
-  --bg-panel-solid: #161616;
-  --line: rgba(255, 255, 255, 0.1);
-  --text: #f5f5f5;
-  --text-dim: #a0a0a0;
-  --amber: #ffc799;
-  --cyan: #99ffe4;
-  --green: #99ffe4;
+html[data-theme="deep-space"] {
+  --bg: #070b12;
+  --bg-panel: rgba(17, 23, 34, 0.82);
+  --bg-panel-solid: #111722;
+  --line: rgba(120, 150, 200, 0.16);
+  --text: #c9d4e3;
+  --text-dim: #8494ab;
+  --amber: #ffb454;
+  --cyan: #59c2ff;
+  --green: #7fd962;
 }
 
 /* ---- self-hosted JetBrains Mono Nerd Font (subset: Latin + tech glyphs) ---- */

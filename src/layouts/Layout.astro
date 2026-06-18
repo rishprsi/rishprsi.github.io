@@ -26,9 +26,10 @@ const favicon =
         });
       }
       // apply the saved theme before first paint so there's no palette flash
+      // (vesper is the :root default, so it needs no attribute)
       try {
         var savedTheme = localStorage.getItem("rs-theme");
-        if (savedTheme && savedTheme !== "deep-space") {
+        if (savedTheme && savedTheme !== "vesper") {
           document.documentElement.setAttribute("data-theme", savedTheme);
         }
       } catch (e) {}

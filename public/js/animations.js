@@ -9,14 +9,50 @@
    key from a project in data.js.
    ============================================================ */
 
-const C = {
-  amber: "#ffb454",
-  cyan: "#59c2ff",
-  green: "#7fd962",
-  dim: "rgba(132,148,171,0.55)",
-  faint: "rgba(120,150,200,0.18)",
-  bgFade: "rgba(7,11,18,0.30)",
-};
+/* Shared palette. Values are derived from the active theme's CSS vars
+   (the same --amber/--cyan/--green/--text-dim/--bg the page uses) and
+   refreshed whenever the theme changes, so the animations follow suit.
+   Draw calls read C.* live each frame; the *A() helpers cover the spots
+   that need a custom alpha. */
+const C = {};
+function cssRgb(v, fallback) {
+  v = (v || "").trim();
+  const x = v.replace("#", "");
+  if (x.length === 3)
+    return [
+      parseInt(x[0] + x[0], 16),
+      parseInt(x[1] + x[1], 16),
+      parseInt(x[2] + x[2], 16),
+    ].join(",");
+  if (x.length >= 6)
+    return [
+      parseInt(x.slice(0, 2), 16),
+      parseInt(x.slice(2, 4), 16),
+      parseInt(x.slice(4, 6), 16),
+    ].join(",");
+  return fallback;
+}
+function refreshPalette() {
+  const cs = getComputedStyle(document.documentElement);
+  const amber = cssRgb(cs.getPropertyValue("--amber"), "255,180,84");
+  const cyan = cssRgb(cs.getPropertyValue("--cyan"), "89,194,255");
+  const green = cssRgb(cs.getPropertyValue("--green"), "127,217,98");
+  const dim = cssRgb(cs.getPropertyValue("--text-dim"), "132,148,171");
+  const bg = cssRgb(cs.getPropertyValue("--bg"), "7,11,18");
+  C.amber = `rgb(${amber})`;
+  C.cyan = `rgb(${cyan})`;
+  C.green = `rgb(${green})`;
+  C.dim = `rgba(${dim},0.55)`;
+  C.faint = `rgba(${cyan},0.18)`;
+  C.bgSolid = `rgb(${bg})`;
+  C.bgFade = `rgba(${bg},0.30)`;
+  C.amberA = (a) => `rgba(${amber},${a})`;
+  C.cyanA = (a) => `rgba(${cyan},${a})`;
+  C.greenA = (a) => `rgba(${green},${a})`;
+  C.dimA = (a) => `rgba(${dim},${a})`;
+}
+refreshPalette();
+window.addEventListener("rs-theme-change", refreshPalette);
 
 const TAU = Math.PI * 2;
 const rnd = (a, b) => a + Math.random() * (b - a);
@@ -111,7 +147,7 @@ const ANIMATIONS = {
         col: Math.random() < 0.3 ? C.amber : C.cyan,
       };
     });
-    ctx.fillStyle = "#070b12";
+    ctx.fillStyle = C.bgSolid;
     ctx.fillRect(0, 0, w, h);
     return (t, dt) => {
       ctx.fillStyle = C.bgFade;
@@ -172,7 +208,7 @@ const ANIMATIONS = {
         const ty = 18 + b.rank * rowH;
         b.y = b.y === 0 ? ty : b.y + (ty - b.y) * Math.min(dt * 6, 1);
         const len = 30 + b.score * (w - 90);
-        ctx.fillStyle = b.rank === 0 ? C.amber : "rgba(89,194,255,0.55)";
+        ctx.fillStyle = b.rank === 0 ? C.amber : C.cyanA(0.55);
         ctx.fillRect(34, b.y, len, rowH * 0.42);
         ctx.fillStyle = C.dim;
         ctx.font = "9px monospace";
@@ -484,7 +520,7 @@ const ANIMATIONS = {
       if (flash > 0) {
         ctx.beginPath();
         ctx.arc(bx, by - bounce, r + 6 + (1 - flash) * 14, 0, TAU);
-        ctx.strokeStyle = `rgba(255,180,84,${flash})`;
+        ctx.strokeStyle = C.amberA(flash);
         ctx.stroke();
       }
       wild.forEach((d) => {
@@ -689,7 +725,7 @@ const ANIMATIONS = {
       nodes.forEach((n, i) => {
         if (n.parent >= 0) {
           const par = nodes[n.parent];
-          ctx.strokeStyle = n.visited ? "rgba(255,180,84,0.4)" : C.faint;
+          ctx.strokeStyle = n.visited ? C.amberA(0.4) : C.faint;
           ctx.beginPath();
           ctx.moveTo(par.x, par.y);
           ctx.lineTo(n.x, n.y);
@@ -699,7 +735,7 @@ const ANIMATIONS = {
       nodes.forEach((n) => {
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.visited ? 5 : 4, 0, TAU);
-        ctx.fillStyle = n.visited ? C.amber : "rgba(132,148,171,0.35)";
+        ctx.fillStyle = n.visited ? C.amber : C.dimA(0.35);
         ctx.fill();
       });
       // spider moving to next target
@@ -756,7 +792,7 @@ const ANIMATIONS = {
         const active = i === seg;
         ctx.beginPath();
         ctx.arc(p.x, p.y, active ? 6 : 4.5, 0, TAU);
-        ctx.fillStyle = active ? C.amber : "rgba(132,148,171,0.4)";
+        ctx.fillStyle = active ? C.amber : C.dimA(0.4);
         ctx.fill();
         ctx.fillStyle = active ? C.amber : C.dim;
         ctx.font = "9px monospace";
@@ -796,7 +832,7 @@ const ANIMATIONS = {
       ctx.clearRect(0, 0, w, h);
       // semantic edges (cyan) parent->child
       mids.forEach((m, i) => {
-        ctx.strokeStyle = "rgba(89,194,255,0.3)";
+        ctx.strokeStyle = C.cyanA(0.3);
         ctx.beginPath();
         ctx.moveTo(root.x, root.y);
         ctx.lineTo(m.x, m.y);
@@ -809,7 +845,7 @@ const ANIMATIONS = {
         });
       });
       // temporal edges (amber, dashed) between siblings
-      ctx.strokeStyle = "rgba(255,180,84,0.35)";
+      ctx.strokeStyle = C.amberA(0.35);
       ctx.setLineDash([3, 4]);
       for (let i = 0; i < leaves.length - 1; i++) {
         ctx.beginPath();
@@ -830,9 +866,9 @@ const ANIMATIONS = {
       ctx.font = "9px monospace";
       ctx.fillStyle = C.dim;
       ctx.fillText("importance ∝ pagerank", 10, h - 8);
-      ctx.fillStyle = "rgba(89,194,255,0.8)";
+      ctx.fillStyle = C.cyanA(0.8);
       ctx.fillText("— semantic", w - 130, h - 18);
-      ctx.fillStyle = "rgba(255,180,84,0.8)";
+      ctx.fillStyle = C.amberA(0.8);
       ctx.fillText("┄ temporal", w - 130, h - 8);
     };
   },
@@ -857,7 +893,7 @@ const ANIMATIONS = {
       bins.forEach((b, i) => {
         const x = 20 + i * binW;
         const bh = (b.n / maxN) * (h - 60);
-        ctx.fillStyle = "rgba(89,194,255,0.45)";
+        ctx.fillStyle = C.cyanA(0.45);
         ctx.fillRect(x + 6, baseY - bh, binW - 12, bh);
         ctx.fillStyle = C.amber;
         ctx.fillText(b.ch, x + binW / 2 - 3, baseY + 13);
@@ -1066,6 +1102,13 @@ const AnimManager = (() => {
     resizeTimer = setTimeout(() => {
       entries.forEach((e, canvas) => setup(canvas, e.key));
     }, 200);
+  });
+
+  // theme switch: rebuild factories so colors baked in at setup time
+  // (agents/nbody/chirps particle colors) pick up the new palette too
+  window.addEventListener("rs-theme-change", () => {
+    entries.forEach((e, canvas) => setup(canvas, e.key));
+    if (reduced) entries.forEach((e) => e.draw(1, 0.016));
   });
 
   return {

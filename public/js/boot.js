@@ -80,8 +80,8 @@
   /* 6 — theme switching (persisted; tells the background to recolor) */
   function applyTheme(name) {
     if (!name) return;
-    if (name === "deep-space") {
-      document.documentElement.removeAttribute("data-theme");
+    if (name === "vesper") {
+      document.documentElement.removeAttribute("data-theme"); // vesper is the :root default
     } else {
       document.documentElement.setAttribute("data-theme", name);
     }
