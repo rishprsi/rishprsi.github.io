@@ -721,6 +721,87 @@ h1 {
   border-radius: 999px;
 }
 
+/* ---- in-progress badge ("live build" telemetry chip) ---- */
+.wip {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+  background: rgba(7, 11, 18, 0.82);
+  border: 1px solid rgba(127, 217, 98, 0.45);
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem 0.2rem 0.5rem;
+}
+
+.wip .pip {
+  position: relative;
+  width: 7px;
+  height: 7px;
+}
+.wip .pip::before,
+.wip .pip::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--green);
+}
+.wip .pip::after {
+  animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  80%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* a faint line sweeping the card to say "actively building" */
+.g-featured.building,
+.card.building {
+  position: relative;
+}
+.g-featured.building::after,
+.card.building::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+  box-shadow: 0 0 8px var(--green);
+  opacity: 0.65;
+  animation: scan 3.8s ease-in-out infinite;
+}
+
+@keyframes scan {
+  0% {
+    top: 0;
+  }
+  50% {
+    top: calc(100% - 2px);
+  }
+  100% {
+    top: 0;
+  }
+}
+
 .card-body {
   padding: 1.2rem 1.3rem 1.3rem;
   display: flex;
@@ -906,7 +987,10 @@ h1 {
     transition: none;
   }
   .brand-dot,
-  .scroll-hint {
+  .scroll-hint,
+  .wip .pip::after,
+  .g-featured.building::after,
+  .card.building::after {
     animation: none;
   }
 }

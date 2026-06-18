@@ -163,6 +163,7 @@ export const PROJECT_GROUPS = [
       {
         name: "Memory Graph",
         tag: "LLM infrastructure",
+        inProgress: true, // shows the live "in progress" badge on its card
         anim: "memgraph",
         desc: "Hierarchical graph memory for LLM agents: semantic and temporal edges with PageRank-style importance weighting, nested subgraph summarization to cut context tokens, and a semantic response cache with staleness expiry.",
         tech: ["Python", "Graphs", "LLM", "Embeddings"],
