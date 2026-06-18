@@ -36,7 +36,7 @@ export const SITE = {
 
 export const ABOUT_PARAGRAPHS = [
   "I'm a master's student at the University of Washington, working on <strong>MASS C++</strong>, a parallel computing library for agent-based simulation on distributed-memory clusters. My thesis is pushing it toward a general-purpose runtime, with modern lambda dispatch, asynchronous compound execution, and a full graph-computing stack.",
-  "Before grad school I spent about four years as a data engineer and full-stack developer (Wipro on the Blackstone account, then Infosys), shipping finance dashboards, rule engines, and event-driven microservices. These days I work a lot closer to the metal: C++, CUDA, MPI, and the quiet joy of profiling something until it stops embarrassing me.",
+  "Before grad school I spent about four years as a data engineer and full-stack developer (Wipro on the Blackstone account, after Infosys), shipping finance dashboards, rule engines, and event-driven microservices. These days I work a lot closer to the metal: C++, CUDA, MPI, and the quiet joy of profiling something until it stops embarrassing me.",
   "Most of the projects below started as learning exercises that got a little out of hand, which, honestly, is my favorite way to learn.",
 ];
 
@@ -44,6 +44,7 @@ export const BOOKS = [
   "The Pragmatic Programmer",
   "Advanced Programming in the UNIX Environment",
   "Competitive Programmer's Handbook",
+  "Lord of the Rings",
 ];
 
 export const CERTS = [
