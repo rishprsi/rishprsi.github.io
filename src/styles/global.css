@@ -1062,6 +1062,18 @@ h1 {
   padding: 0 0.3rem;
 }
 
+/* terminal glyph shown only on the mobile (icon-only) console button */
+.dock-glyph {
+  display: none;
+  font-size: 1.05rem;
+  line-height: 1;
+  color: var(--cyan);
+}
+/* avoid a tofu flash before the Nerd Font finishes loading */
+.fonts-pending .dock-glyph {
+  visibility: hidden;
+}
+
 .cmdk-wrap {
   position: fixed;
   inset: 0;
@@ -1146,7 +1158,27 @@ h1 {
 }
 
 @media (max-width: 480px) {
+  /* collapse the console button to a round, icon-only terminal glyph;
+     theme lives inside the palette, so the separate theme button hides */
   .console-dock {
+    left: 0.8rem;
+    bottom: 0.8rem;
+  }
+  #dock-cmdk {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border-radius: 50%;
+    justify-content: center;
+  }
+  #dock-cmdk .dock-key,
+  #dock-cmdk .dock-label {
+    display: none;
+  }
+  #dock-cmdk .dock-glyph {
+    display: inline-block;
+  }
+  #dock-theme {
     display: none;
   }
 }
