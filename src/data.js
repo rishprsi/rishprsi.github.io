@@ -81,7 +81,7 @@ export const THESIS = {
   institution: "University of Washington · MS Thesis · 2026",
   anim: "agents",
   summary:
-    "MASS C++ runs agent-based simulations on distributed-memory clusters using a master-worker BSP model. My thesis removes three structural limits while staying fully backward compatible, so existing simulations recompile and run unchanged.",
+    "MASS C++ is a parallel computing library for agent-based simulation on distributed-memory clusters. Models are written as autonomous agents moving over distributed spatial 'places,' and MASS handles the hard part: partitioning that work across many machines and keeping them in lockstep with a bulk-synchronous parallel (BSP) model. It's how you run simulations too large to fit on a single node.",
   contributions: [
     {
       title: "Three-Tier Lambda Dispatch",
@@ -308,7 +308,7 @@ export const PROJECT_GROUPS = [
 ];
 
 export const PROJECTS_INTRO =
-  "Four groups, each led by its flagship build. Open a group's full log to see everything inside, and every project has its own little system animation.";
+  "Major Projects I have done, grouped by their field of study. Flagship projects are on the top, expand to see all projects in the field.";
 
 export const EXPERIENCE = [
   {
@@ -342,7 +342,7 @@ export const EXPERIENCE = [
 ];
 
 export const NAV = [
-  { label: "crew", href: "#about" },
+  { label: "captain", href: "#about" },
   { label: "research", href: "#thesis" },
   { label: "missions", href: "#projects" },
   { label: "record", href: "#experience" },
